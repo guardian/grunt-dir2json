@@ -56,6 +56,7 @@ data
     },
   }
 }
+```
 
 If a file contains JSON, it is stored as JSON; if not, it is stored as text. If a folder only contains items with numeric filenames (as in the case of the `slides` folder above), it will become an array rather than an object.
 
