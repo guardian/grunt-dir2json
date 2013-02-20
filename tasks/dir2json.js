@@ -127,9 +127,7 @@ module.exports = function(grunt) {
 			// Indent is used for logging
 			indent = indent || '';
 
-			if ( !options.terse ) {
-				grunt.log.writeln( indent + getKey( dir ) );
-			}
+			grunt.verbose.writeln( indent + getKey( dir ) );
 
 			contents = grunt.file.expand( dir + '/*' ).filter( removeExclusions );
 

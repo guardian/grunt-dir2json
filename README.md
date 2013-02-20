@@ -24,7 +24,7 @@ data
    |- de.json
 ```
 
-...you would get JSON that looked something like this:
+...you would get JSON that looked something like this, except minified:
 
 ```js
 {
@@ -100,12 +100,6 @@ grunt.initConfig({
 Type: `String` or `Array`
 
 A pattern, or array of patterns, of filenames to exclude, e.g. `**/*/notes.md`. Uses the standard globbing syntax. `.DS_Store` and `Thumbs.db` files will **always** be excluded - you don't need to specify these.
-
-#### options.terse
-Type: `Boolean`
-Default value: `false`
-
-Whether to be terse or not.
 
 ### Usage Examples
 
