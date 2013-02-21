@@ -60,6 +60,11 @@ module.exports = function(grunt) {
 		path = require( 'path' );
 		result = {};
 
+		// If root has a trailing slash, remove it
+		if ( root.substr( -1 ) === path.sep ) {
+			root = root.substr( 0, root.length - 1 );
+		}
+
 
 		// Get key from path, e.g. 'project/data/config.json' -> 'config'
 		getKey = function ( filepath ) {
