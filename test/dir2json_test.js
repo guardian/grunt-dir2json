@@ -62,5 +62,14 @@ exports.dir2json = {
     test.equal(actual, expected, 'should ignore the README file, as specified');
 
     test.done();
+  },
+  test_05: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test_05.json');
+    var expected = grunt.file.read('test/expected/test_05.json');
+    test.equal(actual, expected, 'should ignore trailing slash on root property');
+
+    test.done();
   }
 };

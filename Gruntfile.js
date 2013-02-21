@@ -48,6 +48,10 @@ module.exports = function(grunt) {
 				options: {
 					exclude: '**/*/README.md'
 				}
+			},
+			test_05: {
+				root: 'test/fixtures/test_05/',
+				dest: 'tmp/test_05.json'
 			}
 		},
 
