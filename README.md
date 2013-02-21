@@ -146,3 +146,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 0.1.0 - first release
+0.1.1 - trailing slashes in 'root' option are now ignored
