@@ -71,5 +71,23 @@ exports.dir2json = {
     test.equal(actual, expected, 'should ignore trailing slash on root property');
 
     test.done();
+  },
+  test_06: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test_06.js');
+    var expected = grunt.file.read('test/expected/test_06.js');
+    test.equal(actual, expected, 'should create JSONP if jsonpCallback option supplied');
+
+    test.done();
+  },
+  test_07: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test_07.json');
+    var expected = grunt.file.read('test/expected/test_07.json');
+    test.equal(actual, expected, 'should pretty-print result if space option supplied');
+
+    test.done();
   }
 };

@@ -52,6 +52,20 @@ module.exports = function(grunt) {
 			test_05: {
 				root: 'test/fixtures/test_05/',
 				dest: 'tmp/test_05.json'
+			},
+			test_06: {
+				root: 'test/fixtures/test_06/',
+				dest: 'tmp/test_06.js',
+				options: {
+					jsonpCallback: 'jsonp_12345'
+				}
+			},
+			test_07: {
+				root: 'test/fixtures/test_07/',
+				dest: 'tmp/test_07.json',
+				options: {
+					space: '\t'
+				}
 			}
 		},
 
