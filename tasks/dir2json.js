@@ -18,7 +18,9 @@ module.exports = function(grunt) {
 		var options, key, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
 
 		// Task config
-		options = this.options();
+		options = this.options({
+			replacer: null
+		});
 
 		if ( this.data.options ) {
 			for ( key in this.data.options ) {
@@ -134,7 +136,7 @@ module.exports = function(grunt) {
 
 			grunt.verbose.writeln( indent + getKey( dir ) );
 
-			contents = grunt.file.expand( dir + '/*' ).filter( removeExclusions );
+			contents = grunt.file.expand( dir + path.sep + '*' ).filter( removeExclusions );
 
 			if ( contentsAreNumeric( contents ) ) {
 				result = [];
@@ -178,7 +180,12 @@ module.exports = function(grunt) {
 		}
 
 		grunt.log.writeln( 'Writing file ' + dest );
-		grunt.file.write( dest, JSON.stringify( result ) );
+
+		if ( options.jsonpCallback ) {
+			grunt.file.write( dest, options.jsonpCallback + '(' + JSON.stringify( result, options.replacer, options.space ) + ');' );
+		} else {
+			grunt.file.write( dest, JSON.stringify( result, options.replacer, options.space ) );
+		}
 
 	});
 
