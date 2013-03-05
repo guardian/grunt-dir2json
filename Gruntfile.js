@@ -66,6 +66,13 @@ module.exports = function(grunt) {
 				options: {
 					space: '\t'
 				}
+			},
+			test_08: {
+				root: 'test/fixtures/test_08/',
+				dest: 'tmp/test_08.js',
+				options: {
+					amd: true
+				}
 			}
 		},
 

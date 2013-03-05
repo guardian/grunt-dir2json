@@ -116,6 +116,11 @@ Type: `String`
 
 If supplied, dir2json will create JSONP instead of JSON (note that the destination filename should end `.js` and not `.json` in this case)
 
+#### amd
+Type: `Boolean`
+
+If `true`, dir2json will create an AMD module (as above, extension should be `.js`)
+
 
 ### Usage Examples
 

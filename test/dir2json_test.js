@@ -89,5 +89,14 @@ exports.dir2json = {
     test.equal(actual, expected, 'should pretty-print result if space option supplied');
 
     test.done();
+  },
+  test_08: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test_08.js');
+    var expected = grunt.file.read('test/expected/test_08.js');
+    test.equal(actual, expected, 'should create an anonymous AMD module');
+
+    test.done();
   }
 };
