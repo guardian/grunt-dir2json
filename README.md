@@ -101,6 +101,22 @@ Type: `String` or `Array`
 
 A pattern, or array of patterns, of filenames to exclude, e.g. `**/*/notes.md`. Uses the standard globbing syntax. `.DS_Store` and `Thumbs.db` files will **always** be excluded - you don't need to specify these.
 
+#### replacer
+Type: `Function` or `Array`
+
+Transforms values and properties. See the [MDN docs](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify)
+
+#### space
+Type: `String`
+
+Pretty-prints the result using this string. See the [MDN docs](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify)
+
+#### jsonpCallback
+Type: `String`
+
+If supplied, dir2json will create JSONP instead of JSON (note that the destination filename should end `.js` and not `.json` in this case)
+
+
 ### Usage Examples
 
 #### Default Options
