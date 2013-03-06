@@ -96,7 +96,7 @@ grunt.initConfig({
 
 ### Options
 
-#### options.exclude
+#### exclude
 Type: `String` or `Array`
 
 A pattern, or array of patterns, of filenames to exclude, e.g. `**/*/notes.md`. Uses the standard globbing syntax. `.DS_Store` and `Thumbs.db` files will **always** be excluded - you don't need to specify these.
@@ -166,5 +166,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-0.1.0 - first release
-0.1.1 - trailing slashes in 'root' option are now ignored
+* 0.1.0 - first release
+* 0.1.1 - trailing slashes in 'root' option are now ignored
+* 0.1.2 - AMD, JSONP and pretty-print options
