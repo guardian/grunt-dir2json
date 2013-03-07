@@ -19,18 +19,11 @@ module.exports = function(grunt) {
 
 		// Task config
 		options = this.options({
-			replacer: null
+			replacer: null,
+			jsonpCallback: null,
+			amd: false
 		});
 
-		if ( this.data.options ) {
-			for ( key in this.data.options ) {
-				if ( this.data.options.hasOwnProperty( key ) ) {
-					options[ key ] = this.data.options[ key ];
-				}
-			}
-		}
-
-		options = this.data.options || {};
 		root = this.data.root;
 		dest = this.data.dest;
 
