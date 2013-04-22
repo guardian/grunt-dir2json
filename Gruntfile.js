@@ -73,6 +73,21 @@ module.exports = function(grunt) {
 				options: {
 					amd: true
 				}
+			},
+			test_09: {
+				root: 'test/fixtures/test_09/',
+				dest: 'tmp/test_09.json',
+				options: {
+					processContent: function(content, srcpath){
+						var tags = {name: 'someone'};
+						for(var tagName in tags){
+							var tagValue = grunt.config.process(tags[tagName]);
+							var regex = new RegExp("<%=\\s*"+tagName+"\\s*%>", "g");
+							content = content.replace(regex, tagValue);
+						}
+						return content;
+					}
+				}
 			}
 		},
 

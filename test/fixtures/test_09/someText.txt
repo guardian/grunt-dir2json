@@ -1,0 +1,2 @@
+Dear <%= name %>,
+Have a nice day!

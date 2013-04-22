@@ -21,7 +21,8 @@ module.exports = function(grunt) {
 		options = this.options({
 			replacer: null,
 			jsonpCallback: null,
-			amd: false
+			amd: false,
+			processContent: null
 		});
 
 		root = this.data.root;
@@ -110,6 +111,9 @@ module.exports = function(grunt) {
 			var result, data = grunt.file.read( item );
 
 			try {
+				if(options.processContent){
+					data = options.processContent(data, item);
+				}
 				result = JSON.parse( data );
 			} catch ( err ) {
 				result = data;
@@ -127,7 +131,7 @@ module.exports = function(grunt) {
 			// Indent is used for logging
 			indent = indent || '';
 
-			grunt.verbose.writeln( indent + getKey( dir ) );
+			grunt.log.writeln( indent + getKey( dir ) );
 
 			contents = grunt.file.expand( dir + path.sep + '*' ).filter( removeExclusions );
 

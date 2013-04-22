@@ -98,5 +98,14 @@ exports.dir2json = {
     test.equal(actual, expected, 'should create an anonymous AMD module');
 
     test.done();
+  },
+  test_09: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test_09.json');
+    var expected = grunt.file.read('test/expected/test_09.json');
+    test.equal(actual, expected, 'should process file content');
+
+    test.done();
   }
 };
