@@ -101,10 +101,15 @@ Type: `String` or `Array`
 
 A pattern, or array of patterns, of filenames to exclude, e.g. `**/*/notes.md`. Uses the standard globbing syntax. `.DS_Store` and `Thumbs.db` files will **always** be excluded - you don't need to specify these.
 
+#### processContent
+Type: `Function ( content, srcpath )`
+
+A function to process content. Will be applied to all files - if you want to selectively apply, filter by `srcpath`
+
 #### replacer
 Type: `Function` or `Array`
 
-Transforms values and properties. See the [MDN docs](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify)
+Transforms values and properties when stringifying JSON. See the [MDN docs](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify)
 
 #### space
 Type: `String`
@@ -139,13 +144,19 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-In this (slightly contrived) example, there are two targets - `dev` and `dist`. In both cases .md files will be excluded. In the `dist` target, any files named `debug_hints.json` will also be excluded.
+In this (slightly contrived) example, there are two targets - `dev` and `dist`. In both cases .md files will be excluded, and .csv files will be parsed using an imaginary `csv-to-json` module. In the `dist` target, any files named `debug_hints.json` will also be excluded. 
 
 ```js
 grunt.initConfig({
   dir2json: {
     options: {
-      exclude: '**/*.md'
+      exclude: '**/*.md',
+      processContent: function ( content, srcpath ) {
+        if ( srcpath.substr( -4 ) === '.csv' ) {
+          return require( 'csv-to-json' )( content );
+        }
+        return content;
+      }
     },
     dev: {
       root: 'project/data',
@@ -153,7 +164,7 @@ grunt.initConfig({
     },
     dist: {
       options: {
-        exclude: '**/*/debug.json'
+        exclude: '**/*/debug_hints.json'
       },
       root: 'project/data',
       dest: 'project/src/data.json'
