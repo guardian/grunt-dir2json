@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 
 
 		processDir = function ( dir, indent ) {
-			var result, contents, item, i, key, value;
+			var result, contents, item, i, key, value, resultIsArray;
 
 			// Indent is used for logging
 			indent = indent || '';
@@ -137,6 +137,7 @@ module.exports = function(grunt) {
 
 			if ( contentsAreNumeric( contents ) ) {
 				result = [];
+				resultIsArray = true;
 			} else {
 				result = {};
 			}
@@ -161,6 +162,13 @@ module.exports = function(grunt) {
 				if ( result[ key ] ) {
 					grunt.log.error( 'You cannot have multiple files or directories with the same name (extensions are ignored) - failed at ' + item );
 					return false;
+				}
+
+				if ( resultIsArray ) {
+					// this strips off leading zeroes, allows multi-digit keys,
+					// which helps with alphabetical sorting in folders. I.e. instead
+					// of '1, 10, 11, 12, 2, 3, 4...', you can have '01, 02, 03, 04...''
+					key = +key;
 				}
 
 				result[ key ] = value;
