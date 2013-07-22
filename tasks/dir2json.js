@@ -187,7 +187,7 @@ module.exports = function(grunt) {
 		grunt.log.writeln( 'Writing file ' + dest );
 
 		if ( options.amd ) {
-			grunt.file.write( dest, 'define(function () {\nreturn ' + JSON.stringify( result, options.replacer, options.space ) + ';\n}());' );
+			grunt.file.write( dest, 'define([],function () {\nreturn ' + JSON.stringify( result, options.replacer, options.space ) + ';\n}());' );
 		} else if ( options.jsonpCallback ) {
 			grunt.file.write( dest, options.jsonpCallback + '(' + JSON.stringify( result, options.replacer, options.space ) + ');' );
 		} else {
