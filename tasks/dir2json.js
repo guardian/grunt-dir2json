@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 
 		// Get key from path, e.g. 'project/data/config.json' -> 'config'
 		getKey = function ( filepath, isDir ) {
-			var key = filepath.split( path.sep ).slice( -1 )[0];
+			var key = path.normalize( filepath ).split( path.sep ).slice( -1 )[0];
 
 			if ( !isDir && key.lastIndexOf( '.' ) > 0 ) {
 				key = key.substr( 0, key.lastIndexOf( '.' ) );
