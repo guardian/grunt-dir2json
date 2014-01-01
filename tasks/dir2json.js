@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.registerMultiTask('dir2json', 'Flatten a folder to a JSON file representing its contents', function() {
-		
+
 		var options, key, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
 
 		// Task config
@@ -63,10 +63,10 @@ module.exports = function(grunt) {
 
 
 		// Get key from path, e.g. 'project/data/config.json' -> 'config'
-		getKey = function ( filepath ) {
+		getKey = function ( filepath, isDir ) {
 			var key = filepath.split( path.sep ).slice( -1 )[0];
 
-			if ( key.lastIndexOf( '.' ) > 0 ) {
+			if ( !isDir && key.lastIndexOf( '.' ) > 0 ) {
 				key = key.substr( 0, key.lastIndexOf( '.' ) );
 			}
 
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 			}
 
 			while ( i-- ) {
-				if ( isNaN( getKey( contents[i] ) ) ) {
+				if ( isNaN( getKey( contents[i], grunt.file.isDir( contents[i] ) ) ) ) {
 					return false;
 				}
 			}
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
 			// Indent is used for logging
 			indent = indent || '';
 
-			grunt.log.writeln( indent + getKey( dir ) );
+			grunt.log.writeln( indent + getKey( dir, true ) );
 
 			contents = grunt.file.expand( dir + path.sep + '*' ).filter( removeExclusions );
 
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 			i = contents.length;
 			while ( i-- ) {
 				item = contents[i];
-				key = getKey( item );
+				key = getKey( item, grunt.file.isDir( item ) );
 
 				if ( grunt.file.isDir( item ) ) {
 					value = processDir( item, indent + '  -> ' );
