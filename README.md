@@ -144,7 +144,7 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-In this (slightly contrived) example, there are two targets - `dev` and `dist`. In both cases .md files will be excluded, and .csv files will be parsed using an imaginary `csv-to-json` module. In the `dist` target, any files named `debug_hints.json` will also be excluded. 
+In this (slightly contrived) example, there are two targets - `dev` and `dist`. In both cases .md files will be excluded, and .csv files will be parsed using an imaginary `csv-to-json` module. In the `dist` target, any files named `debug_hints.json` will also be excluded.
 
 ```js
 grunt.initConfig({
