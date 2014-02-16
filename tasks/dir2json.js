@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 	'use strict';
 
 	grunt.registerMultiTask('dir2json', 'Flatten a folder to a JSON file representing its contents', function() {
-		
+
 		var options, key, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
 
 		// Task config
@@ -22,7 +22,8 @@ module.exports = function(grunt) {
 			replacer: null,
 			jsonpCallback: null,
 			amd: false,
-			processContent: null
+			processContent: null,
+			allowFalsy: true
 		});
 
 		root = this.data.root;
@@ -171,7 +172,11 @@ module.exports = function(grunt) {
 					key = +key;
 				}
 
-				result[ key ] = value;
+				// don't try and add falsy values
+				// this allows processFile to filter out content
+				if ( value || options.allowFalsy ) {
+					result[ key ] = value;
+				}
 			}
 
 			return result;
