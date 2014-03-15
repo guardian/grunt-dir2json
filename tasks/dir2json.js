@@ -121,6 +121,7 @@ module.exports = function(grunt) {
 			}
 
 			if ( result || !options.preventFalsy ) {
+				// Only log if something is to be added
 				grunt.log.writeln( indent + getKey( item ) );
 			}
 
@@ -157,7 +158,7 @@ module.exports = function(grunt) {
 				if ( grunt.file.isDir( item ) ) {
 					value = processDir( item, indent + '  -> ' );
 
-					// let grunt deal with errors
+					// Let grunt deal with errors
 					if ( value === false ) {
 						return false;
 					}
@@ -172,14 +173,14 @@ module.exports = function(grunt) {
 				}
 
 				if ( resultIsArray ) {
-					// this strips off leading zeroes, allows multi-digit keys,
+					// This strips off leading zeroes, allows multi-digit keys,
 					// which helps with alphabetical sorting in folders. I.e. instead
 					// of '1, 10, 11, 12, 2, 3, 4...', you can have '01, 02, 03, 04...''
 					key = +key;
 				}
 
-				// don't try and add falsy values
-				// this allows processFile to filter out content
+				// Check that we have something to add or that falsy values are allowed
+				// This allows processFile to filter out content
 				if ( value || !options.preventFalsy ) {
 					result[ key ] = value;
 				}
