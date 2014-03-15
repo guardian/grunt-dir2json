@@ -64,10 +64,10 @@ module.exports = function(grunt) {
 
 
 		// Get key from path, e.g. 'project/data/config.json' -> 'config'
-		getKey = function ( filepath ) {
+		getKey = function ( filepath, isDir ) {
 			var key = path.normalize( filepath ).split( path.sep ).slice( -1 )[0];
 
-			if ( key.lastIndexOf( '.' ) > 0 ) {
+			if ( !isDir && key.lastIndexOf( '.' ) > 0 ) {
 				key = key.substr( 0, key.lastIndexOf( '.' ) );
 			}
 
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 			}
 
 			while ( i-- ) {
-				if ( isNaN( getKey( contents[i] ) ) ) {
+				if ( isNaN( getKey( contents[i], grunt.file.isDir( contents[i] ) ) ) ) {
 					return false;
 				}
 			}
@@ -148,12 +148,12 @@ module.exports = function(grunt) {
 
 			if (i) {
 				// Only log keys that have children
-				grunt.log.writeln( indent + getKey( dir ) );
+				grunt.log.writeln( indent + getKey( dir, true ) );
 			}
 
 			while ( i-- ) {
 				item = contents[i];
-				key = getKey( item );
+				key = getKey( item, grunt.file.isDir( item ) );
 
 				if ( grunt.file.isDir( item ) ) {
 					value = processDir( item, indent + '  -> ' );
