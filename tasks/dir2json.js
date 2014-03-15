@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('dir2json', 'Flatten a folder to a JSON file representing its contents', function() {
 
-		var options, key, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
+		var options, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
 
 		// Task config
 		options = this.options({
