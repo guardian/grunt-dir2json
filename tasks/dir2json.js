@@ -134,8 +134,6 @@ module.exports = function(grunt) {
 			// Indent is used for logging
 			indent = indent || '';
 
-			grunt.log.writeln( indent + getKey( dir ) );
-
 			contents = grunt.file.expand( dir + path.sep + '*' ).filter( removeExclusions );
 
 			if ( contentsAreNumeric( contents ) ) {
@@ -146,6 +144,12 @@ module.exports = function(grunt) {
 			}
 
 			i = contents.length;
+
+			if (i) {
+				// Only log keys that have children
+				grunt.log.writeln( indent + getKey( dir ) );
+			}
+
 			while ( i-- ) {
 				item = contents[i];
 				key = getKey( item );
