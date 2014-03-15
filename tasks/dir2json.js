@@ -15,14 +15,15 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('dir2json', 'Flatten a folder to a JSON file representing its contents', function() {
 
-		var options, key, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
+		var options, root, dest, exclusions, path, result, contentsAreNumeric, removeExclusions, processFile, processDir, getKey;
 
 		// Task config
 		options = this.options({
 			replacer: null,
 			jsonpCallback: null,
 			amd: false,
-			processContent: null
+			processContent: null,
+			preventFalsy: true
 		});
 
 		root = this.data.root;
@@ -119,7 +120,10 @@ module.exports = function(grunt) {
 				result = data;
 			}
 
-			grunt.log.writeln( indent + getKey( item ) );
+			if ( result || !options.preventFalsy ) {
+				// Only log if something is to be added
+				grunt.log.writeln( indent + getKey( item ) );
+			}
 
 			return result;
 		};
@@ -131,8 +135,6 @@ module.exports = function(grunt) {
 			// Indent is used for logging
 			indent = indent || '';
 
-			grunt.log.writeln( indent + getKey( dir, true ) );
-
 			contents = grunt.file.expand( dir + path.sep + '*' ).filter( removeExclusions );
 
 			if ( contentsAreNumeric( contents ) ) {
@@ -143,6 +145,12 @@ module.exports = function(grunt) {
 			}
 
 			i = contents.length;
+
+			if (i) {
+				// Only log keys that have children
+				grunt.log.writeln( indent + getKey( dir, true ) );
+			}
+
 			while ( i-- ) {
 				item = contents[i];
 				key = getKey( item, grunt.file.isDir( item ) );
@@ -150,7 +158,7 @@ module.exports = function(grunt) {
 				if ( grunt.file.isDir( item ) ) {
 					value = processDir( item, indent + '  -> ' );
 
-					// let grunt deal with errors
+					// Let grunt deal with errors
 					if ( value === false ) {
 						return false;
 					}
@@ -165,13 +173,17 @@ module.exports = function(grunt) {
 				}
 
 				if ( resultIsArray ) {
-					// this strips off leading zeroes, allows multi-digit keys,
+					// This strips off leading zeroes, allows multi-digit keys,
 					// which helps with alphabetical sorting in folders. I.e. instead
 					// of '1, 10, 11, 12, 2, 3, 4...', you can have '01, 02, 03, 04...''
 					key = +key;
 				}
 
-				result[ key ] = value;
+				// Check that we have something to add or that falsy values are allowed
+				// This allows processFile to filter out content
+				if ( value || !options.preventFalsy ) {
+					result[ key ] = value;
+				}
 			}
 
 			return result;
