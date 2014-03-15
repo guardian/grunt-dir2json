@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 			jsonpCallback: null,
 			amd: false,
 			processContent: null,
-			allowFalsy: true
+			preventFalsy: true
 		});
 
 		root = this.data.root;
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
 
 				// don't try and add falsy values
 				// this allows processFile to filter out content
-				if ( value || options.allowFalsy ) {
+				if ( value || !options.preventFalsy ) {
 					result[ key ] = value;
 				}
 			}
