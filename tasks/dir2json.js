@@ -120,7 +120,9 @@ module.exports = function(grunt) {
 				result = data;
 			}
 
-			grunt.log.writeln( indent + getKey( item ) );
+			if ( result || !options.preventFalsy ) {
+				grunt.log.writeln( indent + getKey( item ) );
+			}
 
 			return result;
 		};
